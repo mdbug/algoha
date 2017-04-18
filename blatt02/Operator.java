@@ -1,5 +1,3 @@
-package blatt02;
-
 /**
  * blatt02
  */
