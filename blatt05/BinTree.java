@@ -6,11 +6,12 @@ public class BinTree {
 
     private TreeNode getNode(int x) {
         TreeNode node = root;
-        while(node != null) {
+        while (node != null) {
             int value = node.getValue();
             if (x == value) {
                 return node;
-            } if (x < value) {
+            }
+            if (x < value) {
                 node = node.getLeft();
             } else {
                 node = node.getRight();
@@ -20,22 +21,12 @@ public class BinTree {
     }
 
     private TreeNode getParentNode(int x) {
-        TreeNode node = root;
-        TreeNode parent = null;
-        while(node != null) {
-            int value = node.getValue();
-            if (x == value) {
-                return parent;
-            } else {
-                parent = node;
-                if (x < value) {
-                    node = node.getLeft();
-                } else {
-                    node = node.getRight();
-                }
-            }
+        TreeNode node = getNode(x);
+        if (node == null) {
+            return null;
+        } else {
+            return node.getParent();
         }
-        return null;
     }
 
     public boolean search(int x) {
@@ -43,26 +34,26 @@ public class BinTree {
     }
 
     public void insert(int x) {
-        TreeNode node = root;
         if (root == null) {
             root = new TreeNode(x);
             return;
         }
-        while(true) {
+        TreeNode node = root;
+        while (true) {
             int value = node.getValue();
             if (x == value) {
                 throw new ArithmeticException("Wert ist schon vorhanden");
             } else if (x < value) {
                 TreeNode left = node.getLeft();
                 if (left == null) {
-                    node.setLeft(new TreeNode(value));
+                    node.setLeft(new TreeNode(x));
                     return;
                 }
                 node = left;
             } else { // x > value
                 TreeNode right = node.getRight();
                 if (right == null) {
-                    node.setLeft(new TreeNode(value));
+                    node.setRight(new TreeNode(x));
                     return;
                 }
                 node = right;
@@ -75,43 +66,81 @@ public class BinTree {
     }
 
     public void remove(int x) {
-        TreeNode parent = getParentNode(x);
-        TreeNode node;
-        boolean isLeftChild;
-        if (parent == null) {
+        TreeNode node = getNode(x);
+        if (node == null) {
             throw new ArithmeticException("Wert ist nicht vorhanden");
-        } else if (x < parent.getValue()) {
-            node = parent.getLeft();
-            isLeftChild = true;
-        } else { // x > parent.getValue()
-            node = parent.getRight();
-            isLeftChild  = false;
         }
 
         if (node.isLeaf()) {
-            if (isLeftChild) {
-                parent.setLeft(null);
-            } else {
-                parent.setRight(null);
-            }
+            clearNode(node);
         } else if (node.isNonBranchingNode()) {
-            TreeNode left = node.getLeft();
-            TreeNode right = node.getRight();
-            if (isLeftChild) {
-                if (left == null) {
-                    parent.setLeft(right);
-                } else {
-                    parent.setLeft(right);
-                }
+            if (node.getLeft() == null) {
+                copyNode(node.getRight(), node);
             } else {
-                if (left == null) {
-                    parent.setLeft(right);
-                } else {
-                    parent.setLeft(right);
-                }
+                copyNode(node.getLeft(), node);
             }
         } else {
-
+            TreeNode minRight = getMinRight(node);
+            // node durch minRight ersetzen
+            node.setValue(minRight.getValue());
+            // rechte Seite von minRight nach minRight schieben
+            if (minRight.getRight() != null) {
+                copyNode(minRight.getRight(), minRight);
+            } else {
+                clearNode(minRight);
+            }
+            node.getParent().setLeft(minRight);
         }
+    }
+
+    private void clearNode(TreeNode node) {
+        if (node == root) {
+            root = null;
+            return;
+        }
+        if (node.getParent().getLeft() == node) {
+            node.getParent().setLeft(null);
+        } else {
+            node.getParent().setRight(null);
+        }
+    }
+
+    private TreeNode getMinRight(TreeNode node) {
+        if (node == null) {
+            return null;
+        }
+        node = node.getRight();
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
+    }
+
+    private void copyNode(TreeNode n1, TreeNode n2) {
+        if (n1 == null || n2 == null) {
+            throw new NullPointerException("Nullpointer");
+        }
+        n2.setValue(n1.getValue());
+        n2.setLeft(n1.getLeft());
+        n2.setRight(n1.getRight());
+    }
+
+    public static void main(String[] args) {
+        BinTree tree = new BinTree();
+        tree.insert(20);
+        tree.insert(10);
+        tree.insert(30);
+        tree.insert(50);
+        System.out.println("30 gefunden: "+tree.search(30));
+        System.out.println("35 gefunden: "+tree.search(35));
+        TreeNode node = tree.getNode(50);
+        if(node==null){
+            System.out.println("Knoten nicht gefunden.");
+        }else{
+            System.out.println("Knoten gefunden: "+node.getValue());
+        }
+        tree.remove(30);
+        System.out.println("Knoten geloescht: 30");
+        System.out.println("Suche Vater von 50: "+tree.getParentNode(50).getValue());//20
     }
 }
