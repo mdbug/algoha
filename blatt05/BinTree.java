@@ -4,6 +4,11 @@
 public class BinTree {
     private TreeNode root;
 
+    /**
+     * Suchen eines Wertes. Falls x nicht vorhanden ist, wird null zurückgegeben.
+     * @param x Such-Wert
+     * @return TreeNode. Falls x nicht vorhanden ist, wird null zurückgegeben.
+     */
     private TreeNode getNode(int x) {
         TreeNode node = root;
         while (node != null) {
@@ -20,6 +25,13 @@ public class BinTree {
         return null;
     }
 
+    /**
+     * Suchen des Elternknoten eines Wertes. Falls x nicht vorhanden oder in der Wurzel steht,
+     * wird null zurückgegeben.
+     * @param x Such-Wert
+     * @return Elternknoten. Falls x nicht vorhanden oder in der Wurzel steht,
+     * wird null zurückgegeben.
+     */
     private TreeNode getParentNode(int x) {
         TreeNode node = getNode(x);
         if (node == null) {
@@ -29,10 +41,20 @@ public class BinTree {
         }
     }
 
+    /**
+     * Gibt zurück, ob der Wert x im Baum vorhanden ist oder nicht.
+     * @param x Wert
+     * @return true, falls der Wert x im Baum vorhanden ist. false, sonst.
+     */
     public boolean search(int x) {
         return getNode(x) != null;
     }
 
+    /**
+     * Einfügen eines Wertes. Falls versucht wird, einen Wert einzufügen, der schon vorhanden
+     * ist, wird eine ArithmeticException ausgelöst.
+     * @param x Wert, der eingefügt werden soll
+     */
     public void insert(int x) {
         if (root == null) {
             root = new TreeNode(x);
@@ -60,11 +82,18 @@ public class BinTree {
             }
         }
     }
-
+    /**
+     * Löschen aller Daten.
+     */
     public void clear() {
         root = null;
     }
 
+    /**
+     * Löschen eines Wertes. Falls versucht wird, einen Wert zu löschen, der nicht vorhanden
+     * ist, wird eine ArithmeticException ausgelöst.
+     * @param x Wert, der gelöscht werden soll
+     */
     public void remove(int x) {
         TreeNode node = getNode(x);
         if (node == null) {
@@ -93,6 +122,10 @@ public class BinTree {
         }
     }
 
+    /**
+     * Löscht einen TreeNode. Darf nur mit Blättern aufgerufen werden
+     * @param node TreeNode, welcher gelöscht werden soll.
+     */
     private void clearNode(TreeNode node) {
         if (node == root) {
             root = null;
@@ -105,6 +138,11 @@ public class BinTree {
         }
     }
 
+    /**
+     * Gibt den TreeNode mit dem kleinsten Wert im rechten Teilbaum zurück
+     * @param node TreeNode
+     * @return TreeNode mit dem kleinsten Wert im rechten Teilbaum
+     */
     private TreeNode getMinRight(TreeNode node) {
         if (node == null) {
             return null;
@@ -116,6 +154,11 @@ public class BinTree {
         return node;
     }
 
+    /**
+     * Kopiert Daten und Referenzen eines TreeNodes in einen anderen
+     * @param n1 Quelle
+     * @param n2 Ziel
+     */
     private void copyNode(TreeNode n1, TreeNode n2) {
         if (n1 == null || n2 == null) {
             throw new NullPointerException("Nullpointer");
