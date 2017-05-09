@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 
-/**
- * Created by micha on 09.05.2017.
- */
 public class BTreeNode {
-    public ArrayList<Integer> values = new ArrayList<>();
-    public ArrayList<BTreeNode> children = new ArrayList<>();
-    public BTreeNode parent;
+    ArrayList<Integer> values = new ArrayList<>();
+    ArrayList<BTreeNode> children = new ArrayList<>();
+    BTreeNode parent;
+
+    public BTreeNode() {
+        children.add(null);
+    }
 }
