@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class BTree {
-    private final int ORDNUNG = 2;
+    public final static int ORDNUNG = 2;
     private BTreeNode root = new BTreeNode();
 
     public boolean search(int x) {
@@ -48,7 +48,6 @@ public class BTree {
         assert index <= node.values.size();
         assert index <= node.children.size();
         node.values.add(index, x);
-        node.children.add(index + 1, null);
 
         int ret = 0;
         int size = node.values.size();
@@ -71,7 +70,28 @@ public class BTree {
             int center = node.values.remove(size / 2);
             int i = Collections.binarySearch(node.parent.values, center);
             ret = Math.max(ret, insertIntoNode(center, node.parent, -i-1));
+            node.parent.children.set(-i, current);
         }
         return ret;
+    }
+
+    public String toString() {
+        return toString(root);
+    }
+
+    private String toString(BTreeNode node) {
+        if (node == null)
+            return "";
+
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < node.children.size(); ++i) {
+            sb.append(toString(node.children.get(i)));
+            if (i < node.values.size()) {
+                sb.append(node.values.get(i));
+                sb.append(" ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }

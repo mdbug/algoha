@@ -8,8 +8,10 @@ public class TestBTree {
         String solution = "00002000011001002";
         String statusOfInsertion = "";
         for(int x : toInsert){
+            System.out.println(btree);
             statusOfInsertion += btree.insert(x);
         }
+        System.out.println(btree);
         System.out.println(statusOfInsertion);
         System.out.println("Das Einfuegen in den Baum hat richtig funktioniert: " + solution.equals(statusOfInsertion));
         System.out.println(btree.search(26)); //true

@@ -6,6 +6,8 @@ public class BTreeNode {
     BTreeNode parent;
 
     public BTreeNode() {
-        children.add(null);
+        for(int i = 0; i < 2*BTree.ORDNUNG + 1; ++i) {
+            children.add(null);
+        }
     }
 }
