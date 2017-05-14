@@ -1,5 +1,5 @@
 /**
- * PACKAGE_NAME
+ * Test fuer B-Baum
  */
 public class TestBTree {
     public static void main(String[] args) {
@@ -8,7 +8,7 @@ public class TestBTree {
         String solution = "00002000011001002";
         String statusOfInsertion = "";
         for(int x : toInsert){
-            System.out.println(btree);
+            //System.out.println(btree);
             statusOfInsertion += btree.insert(x);
         }
         System.out.println(btree);
