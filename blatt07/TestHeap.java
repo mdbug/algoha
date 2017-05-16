@@ -11,7 +11,7 @@ public class TestHeap {
             System.out.println(heap);
         }
         while(!heap.isEmpty()) {
-            int max = heap.getMax();
+            System.out.println(heap.getMax());
             System.out.println(heap);
         }
     }
