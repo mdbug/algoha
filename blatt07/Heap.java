@@ -4,62 +4,91 @@ import java.util.ArrayList;
  * Die Klasse stellt einen Heap dar
  */
 public class Heap {
-    private ArrayList<Integer> heap;
+    private ArrayList<Integer> data;
 
+    /**
+     * Konstruiert einen neuen leeren Heap
+     */
     public Heap() {
-        heap = new ArrayList<Integer>();
-        // Das erste Element bleibt leer
-        heap.add(null);
+        data = new ArrayList<>();
+        // Das erste Element wird ignoriert
+        data.add(1337);
     }
 
+    /**
+     * Entfernt das groesste Element vom Heap und gibt es zurueck
+     * @return das groesste Element
+     */
     public int getMax() {
-        if (heap.isEmpty())
+        if (data.isEmpty())
             throw new RuntimeException("Der Heap ist leer");
-        swap(2, heap.size() - 1);
-        int max = heap.remove(heap.size() - 1);
+
+        swap(1, data.size() - 1);
+        int max = data.remove(data.size() - 1);
         downheap();
         return max;
     }
 
+    /**
+     * Gibt das Feld (den Heap) in Stringdarstellung zurueck
+     * @return das Feld (den Heap) in Stringdarstellung
+     */
     public String toString() {
-        StringBuilder s = new StringBuilder();
-        for (int i = 1; i < heap.size(); ++i) {
-            s.append(i).append(" ");
+        StringBuilder s = new StringBuilder("[");
+        for (int i = 1; i < data.size(); ++i) {
+            s.append(data.get(i));
+            if (i < data.size() - 1) {
+                s.append(", ");
+            }
         }
-        s.deleteCharAt(s.length() - 1);
+        s.append(']');
         return s.toString();
     }
 
+    /**
+     * Gibt zurueck, ob der Heap leer ist
+     * @return true, falls der Heap leer ist. false, sonst.
+     */
     public boolean isEmpty() {
-        return heap.size() <= 1;
+        return data.size() <= 1;
     }
 
+
+    /**
+     * Fuegt den Wert i zum Heap hinzu
+     * @param i Wert, der hinzugefuegt werden soll
+     */
     public void add(int i) {
-        heap.add(i);
+        data.add(i);
         upheap();
     }
 
     private void upheap() {
-
+        int i = data.size() - 1;
+        while (i > 1 && data.get(i / 2) < data.get(i)) {
+            swap(i, i / 2);
+            i = i / 2;
+        }
     }
 
     private void downheap() {
         int i = 1;
-        while(true) {
-            int val = heap.get(i);
-            int left = i*2;
-            int right = i*2 + 1;
-            int leftVal = (i*2) < heap.size() ? heap.get(i*2) : Integer.MIN_VALUE;
-            int rightVal = (i*2 + 1) < heap.size() ? heap.get(i*2 + 1) : Integer.MIN_VALUE;
-            int j = leftVal ==
+        while(i < data.size()) {
+            int val = data.get(i);
+            int left = i * 2;
+            int right = i * 2 + 1;
+            int leftVal = (i * 2) < data.size() ? data.get(i * 2) : Integer.MIN_VALUE;
+            int rightVal = (i * 2 + 1) < data.size() ? data.get(i * 2 + 1) : Integer.MIN_VALUE;
             if (leftVal > rightVal) {
                 if (leftVal > val) {
                     swap(i, i*2);
-                    i = i*2;
+                    i = left;
+                } else {
+                    break;
                 }
-            } else if (leftVal > val) {
+            } else if (rightVal > val) {
                 swap(i, i*2 + 1);
-                i = i*2 + 1;
+                i = right;
             } else {
                 break;
             }
@@ -67,8 +96,8 @@ public class Heap {
     }
 
     private void swap(int i, int j) {
-        int tmp = heap.get(i);
-        heap.set(i, heap.get(j));
-        heap.set(j, tmp);
+        int tmp = data.get(i);
+        data.set(i, data.get(j));
+        data.set(j, tmp);
     }
 }
