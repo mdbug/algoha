@@ -13,8 +13,8 @@ public class DamenProblem {
         damenProblem(brettgroesse, new ArrayList<>(brettgroesse), basket);
 
         for (ArrayList<Integer> loesung : basket) {
-            printGraphisch(loesung);
-//            printLoesung(loesung);
+//            printGraphisch(loesung);
+            printLoesung(loesung);
         }
     }
 
@@ -57,9 +57,9 @@ public class DamenProblem {
         }
         s.append("+\n");
         for (int i = 0; i < loesung.size(); i++) {
-            for (int j = 0; j < loesung.size(); j++) {
+            for (Integer zeile : loesung) {
                 s.append('|');
-                if (loesung.get(j) == i) {
+                if (zeile == i) {
                     s.append('x');
                 } else {
                     s.append(' ');
@@ -76,7 +76,7 @@ public class DamenProblem {
 
     /**
      * Test
-     * @param args
+     * @param args wird ignoriert
      */
     public static void main(String[] args) {
         damenProblem(6);
