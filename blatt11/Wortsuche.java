@@ -8,6 +8,8 @@ public class Wortsuche {
 
     /**
      * Setzt den Text, in dem gesucht wird.
+     *
+     * @param Text
      */
     public Wortsuche(String text) {
         this.text = text;
@@ -16,6 +18,9 @@ public class Wortsuche {
     /**
      * Gibt die last-Tabelle fuer den String pattern als HashMap
      * zurueck. Nicht vorhandene Zeichen haben keinen Eintrag.
+     *
+     * @param pattern Muster
+     * @return Last-Tabelle
      */
     private HashMap<Character, Integer> getLastTabelle(String pattern) {
         HashMap<Character, Integer> lastTabelle = new HashMap<>();
@@ -28,6 +33,10 @@ public class Wortsuche {
     /**
      * Ueberprueft, ob der String pattern mit dem kompletten String ab
      * der Position pos in der benoetigten Laenge uebereinstimmt.
+     *
+     * @param pattern Muster
+     * @param pos     Position
+     * @return true, falls pattern mit dem text ab pos in benoetigter Laenge uebereinstimmt. false, sonst.
      */
     private boolean fits(String pattern, int pos) {
         for (int i = 0; i < pattern.length(); ++i) {
