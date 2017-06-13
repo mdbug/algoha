@@ -27,7 +27,7 @@ public class Wortsuche {
 
     /**
      * Ueberprueft, ob der String pattern mit dem kompletten String ab
-     * der Position pos in der benötigten Länge uebereinstimmt.
+     * der Position pos in der benoetigten Laenge uebereinstimmt.
      */
     private boolean fits(String pattern, int pos) {
         for (int i = 0; i < pattern.length(); ++i) {
