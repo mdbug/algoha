@@ -64,6 +64,5 @@ public class Regex {
         System.out.println(textSearch("abcabcdababdc.", "a....c")); //0,7
         System.out.println(textSearch("a[aababa][ab]a", "a[ab]a")); //3,5
         System.out.println(textSearch("a[aababa][ab]a", "a.\\[a")); //7
-        System.out.println(textSearch("abds", "[asdf")); //7
     }
 }
