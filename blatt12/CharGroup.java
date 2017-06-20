@@ -2,10 +2,10 @@
  * Die Klasse stellt eine Gruppe von Zeichen dar
  */
 public class CharGroup {
-    // Moegliche Zeichen
-    private String chars;
-    // Beliebiges Zeichen? (Falls true, wird der Inhalt von chars ignoriert) (Regex: ".")
+    // Beliebiges Zeichen? (Regex: ".")
     private boolean any = false;
+    // Moegliche Zeichen (falls nicht beliebig)
+    private String chars;
 
     /**
      * Erstellt eine neue Zeichengruppe
