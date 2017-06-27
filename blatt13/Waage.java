@@ -29,7 +29,7 @@ public class Waage {
         test(kombination, sum + gewichte[i], i + 1, artikelGewicht);
         kombination.remove(kombination.size() - 1);
 
-        // Symmetrie
+        // Symmetrische Zweige nicht durchlaufen
         if (Math.abs(sum - gewichte[i]) != Math.abs(sum + gewichte[i])) {
             kombination.add(-gewichte[i]);
             test(kombination, sum - gewichte[i], i + 1, artikelGewicht);
